@@ -14,7 +14,7 @@ pip install -r requirements.txt
 streamlit run app.py
 
 ## Live Demo
-[Coming soon - Streamlit Cloud link]
+[🚀 Try it here](https://bayesian-diagnosis.streamlit.app)
 
 ## Tech Stack
 - Python
