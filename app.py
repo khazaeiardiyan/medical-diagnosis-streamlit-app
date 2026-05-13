@@ -35,5 +35,5 @@ if st.button("Run Diagnosis"):
         st.subheader("Diagnosis Probability Chart")
         st.bar_chart(ranking_df.set_index("Disease"),color="#FDAA48")
         st.warning("this is for educational puposes only ")
-        st.divider()
-        st.caption("⚠️ This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
+st.divider()
+st.caption("⚠️ This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
