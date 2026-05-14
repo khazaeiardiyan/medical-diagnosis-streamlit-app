@@ -35,5 +35,8 @@ if st.button("Run Diagnosis"):
         st.subheader("Diagnosis Probability Chart")
         st.bar_chart(ranking_df.set_index("Disease"),color="#FDAA48")
         st.warning("this is for educational puposes only ")
+        for disease, confidence in ranking:
+            if disease in emergency_diseases:
+                st.error(f'{disease} is an emergency! please seek immidiate action ', icon="💀")
 with st.popover("open popover"):
     st.markdown("⚠️ This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
