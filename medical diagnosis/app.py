@@ -34,6 +34,7 @@ if st.button("Run Diagnosis"):
         st.dataframe(ranking_df)
         st.subheader("Diagnosis Probability Chart")
         st.bar_chart(ranking_df.set_index("Disease"),color="#FDAA48")
+        st.markdown("⚠️ This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
 
         for disease, confidence in ranking:
             if disease in emergency_diseases:
