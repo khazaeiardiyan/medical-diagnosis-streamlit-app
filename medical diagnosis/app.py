@@ -38,3 +38,5 @@ if st.button("Run Diagnosis"):
         for disease, confidence in ranking:
             if disease in emergency_diseases:
                 st.error(f'{disease} is an emergency! please seek immidate action', icon="💀" )
+    with st.popover("open popover"):
+        st.markdown("⚠️ This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
