@@ -41,6 +41,6 @@ if st.button("Run Diagnosis"):
                 st.error(f'{disease} is an emergency! please seek immidate action', icon="💀" )
     with st.popover("for more info:"):
         st.markdown(
-            "<a href="">click here</a>",
+            "<a href="https://www.fraserhealth.ca/Service-Directory/Locations/Abbotsford/abbotsford-urgent-and-primary-care-centre">click here</a>",
             unsafe_allow_html=True
         )
