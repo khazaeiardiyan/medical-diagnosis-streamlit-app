@@ -30,17 +30,18 @@ if st.button("Run Diagnosis"):
         ranking_df = pd.DataFrame(ranking, columns=["Disease", "Confidence (%)"])
         ranking_df["Confidence (%)"] *= 100
         ranking_df["Confidence (%)"] = ranking_df["Confidence (%)"].round(1)
+        st.warning(" This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.", icon="⚠️")
+        st.divider()
         st.subheader("Top Predictions")
         st.dataframe(ranking_df)
         st.subheader("Diagnosis Probability Chart")
         st.bar_chart(ranking_df.set_index("Disease"),color="#FDAA48")
-        st.markdown("⚠️ This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
 
         for disease, confidence in ranking:
             if disease in emergency_diseases:
                 st.error(f'{disease} is an emergency! please seek immidate action', icon="💀" )
     with st.popover("for more info:"):
         st.markdown(
-            f'''<a href="https://www.fraserhealth.ca/Service-Directory/Locations/Abbotsford/abbotsford-urgent-and-primary-care-centre">click here</a>''',
+            f'''<a href="https://www.fraserhealth.ca/Service-Directory/Locations/Abbotsford/abbotsford-urgent-and-primary-care-centre">fraser health care center</a>''',
             unsafe_allow_html=True
         )
