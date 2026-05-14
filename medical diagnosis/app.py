@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit_notify as stn
 import pandas as pd
 from engine import run_diagnosis_engine
 from engine import symptoms
@@ -20,7 +21,6 @@ selected_symptom_ids = [name_to_id[name] for name in selected_symptom_names]
 emergency_diseases = ["heart attack", "sepsis", "stroke",
                       "meningitis", "pulmonary embolism",
                       "appendicitis"]
-
 if st.button("Run Diagnosis"):
     result = run_diagnosis_engine(age, gender, selected_symptom_ids)
     if result["message"] != "success" :
@@ -30,7 +30,8 @@ if st.button("Run Diagnosis"):
         ranking_df = pd.DataFrame(ranking, columns=["Disease", "Confidence (%)"])
         ranking_df["Confidence (%)"] *= 100
         ranking_df["Confidence (%)"] = ranking_df["Confidence (%)"].round(1)
-        st.warning(" This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.", icon="⚠️")
+        stn.notify()
+        st.toast("https://www.fraserhealth.ca/Service-Directory/Locations/Abbotsford/abbotsford-urgent-and-primary-care-centre")
         st.divider()
         st.subheader("Top Predictions")
         st.dataframe(ranking_df)
