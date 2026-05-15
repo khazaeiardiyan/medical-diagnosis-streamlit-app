@@ -5,85 +5,6 @@ import pandas as pd
 from engine import run_diagnosis_engine
 from engine import symptoms
 
-if "accepted_disclaimer" not in st.session_state:
-    query = st.query_params  # new Streamlit API
-    st.session_state.accepted_disclaimer = query.get("accepted") == "true"
-
-
-st.set_page_config(layout="wide")
-
-
-if "disclaimer_accepted" not in st.session_state:
-    st.session_state.disclaimer_accepted = False
-
-def show_blocking_modal():
-    components.html("""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <style>
-        body { margin:0; }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.65);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            z-index:999999;
-        }
-
-        .modal {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            width: 600px;
-            max-width: 90%;
-            text-align:center;
-            box-shadow: 0 0 40px rgba(0,0,0,0.4);
-            font-family: sans-serif;
-        }
-
-        h2 { color:#ff4b4b; }
-
-        .btn {
-            display:inline-block;
-            margin-top:20px;
-            padding:14px 28px;
-            font-size:18px;
-            border-radius:10px;
-            background:#ff4b4b;
-            color:white;
-            text-decoration:none;
-        }
-    </style>
-    </head>
-
-    <body>
-        <div class="overlay">
-            <div class="modal">
-                <h2>⚠️ Medical Disclaimer</h2>
-                <p>
-                This app is for <b>educational purposes only</b> and does NOT
-                provide medical advice or diagnosis.<br><br>
-                Always consult a qualified healthcare professional.
-                </p>
-
-                <a class="btn" href="?accepted=true" target="_top"> I Understand and Agree </a>
-            </div>
-        </div>
-    </body>
-    </html>
-    """, height=0, width=0)
-
-
-params = st.query_params
-
-if not st.session_state.accepted_disclaimer:
-    show_blocking_modal()
-    st.stop()
-
 st.title("Medical Diagnosis Assistant 🩺")
 
 age = st.number_input("Enter your age", min_value=0, max_value=99)
@@ -101,6 +22,14 @@ selected_symptom_ids = [name_to_id[name] for name in selected_symptom_names]
 emergency_diseases = ["heart attack", "sepsis", "stroke",
                       "meningitis", "pulmonary embolism",
                       "appendicitis"]
+
+agreed = st.checkbox("I agree to the Terms of Service to access the site.")
+
+
+if not agreed:
+    st.warning("Please check the box above to continue.")
+    st.stop() 
+
 if st.button("Run Diagnosis"):
     result = run_diagnosis_engine(age, gender, selected_symptom_ids)
     if result["message"] != "success" :
