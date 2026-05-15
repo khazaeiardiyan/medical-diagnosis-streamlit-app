@@ -23,8 +23,8 @@ emergency_diseases = ["heart attack", "sepsis", "stroke",
                       "meningitis", "pulmonary embolism",
                       "appendicitis"]
 
-st.markdown("⚠️ This tool is for educational purposes only and is NOT a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
-agreed = st.checkbox("I Underastand and Agree")
+st.write("⚠️This tool is for educational purposes only and is NOT a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
+agreed = st.checkbox("I Underastand and Agree",)
 
 
 if not agreed:
