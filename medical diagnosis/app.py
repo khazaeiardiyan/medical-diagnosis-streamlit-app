@@ -23,7 +23,7 @@ emergency_diseases = ["heart attack", "sepsis", "stroke",
                       "meningitis", "pulmonary embolism",
                       "appendicitis"]
 
-st.write(":red[This tool is for educational purposes only and is :bold[NOT] a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.]")
+st.write("This tool is for educational purposes only and is :red[**NOT**] a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
 agreed = st.checkbox("I Underastand and Agree",)
 
 
