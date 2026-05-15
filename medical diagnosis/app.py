@@ -23,7 +23,8 @@ emergency_diseases = ["heart attack", "sepsis", "stroke",
                       "meningitis", "pulmonary embolism",
                       "appendicitis"]
 
-agreed = st.checkbox("I agree to the Terms of Service to access the site.")
+st.markdown("⚠️ This tool is for educational purposes only and is NOT a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.")
+agreed = st.checkbox("I Underastand and Agree")
 
 
 if not agreed:
