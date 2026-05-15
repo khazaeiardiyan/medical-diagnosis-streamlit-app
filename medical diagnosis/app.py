@@ -65,7 +65,7 @@ def show_blocking_modal():
                 Always consult a qualified healthcare professional.
                 </p>
 
-                <a class="btn" href="?accepted=true">I Understand and Agree</a>
+                <a class="btn" href="?accepted=true" target="_top"> I Understand and Agree </a>
             </div>
         </div>
     </body>
