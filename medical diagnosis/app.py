@@ -7,56 +7,80 @@ from engine import symptoms
 if "disclaimer_accepted" not in st.session_state:
     st.session_state.disclaimer_accepted = False
 
-def show_disclaimer():
-    modal_html = """
+def show_blocking_modal():
+    st.markdown("""
     <style>
+    /* Fullscreen overlay */
     .overlay {
         position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background-color: rgba(0,0,0,0.6);
+        inset: 0;
+        background: rgba(0,0,0,0.65);
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 9999;
+        z-index: 999999;
     }
+
+    /* Modal adapts to Streamlit theme */
     .modal {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        width: 600px;
+        background: var(--background-color);
+        color: var(--text-color);
+        padding: 2rem;
+        border-radius: 16px;
+        width: 650px;
         max-width: 90%;
         text-align: center;
-        box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        box-shadow: 0 0 40px rgba(0,0,0,0.4);
+        border: 1px solid rgba(150,150,150,0.2);
         font-family: sans-serif;
     }
-    .modal h2 { color: #cc0000; }
+
+    .modal h2 {
+        margin-top: 0;
+        color: #ff4b4b;
+    }
+
+    .big-btn {
+        margin-top: 20px;
+        padding: 12px 28px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        background: #ff4b4b;
+        color: white;
+        cursor: pointer;
+    }
     </style>
 
     <div class="overlay">
         <div class="modal">
             <h2>⚠️ Medical Disclaimer</h2>
             <p>
-            This tool is for <b>educational purposes only</b>.
-            It does NOT provide medical advice, diagnosis, or treatment.
+            This app is for <b>educational purposes only</b> and does NOT provide
+            medical advice, diagnosis, or treatment.<br><br>
             Always consult a qualified healthcare professional.
             </p>
+
+            <form action="" method="post">
+                <button class="big-btn" name="accept" type="submit">
+                    I Understand and Agree
+                </button>
+            </form>
         </div>
     </div>
-    """
-    st.markdown(modal_html, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 
+# show modal until accepted
 if not st.session_state.disclaimer_accepted:
-    show_disclaimer()
+    show_blocking_modal()
 
-    st.markdown("### Please confirm to continue")
-    if st.button("I Understand and Agree"):
+    # Detect form submit
+    if st.query_params.get("accept") is not None:
         st.session_state.disclaimer_accepted = True
         st.rerun()
 
-    st.stop() # to help me freez the app
-
+    st.stop()
 
 st.title("Medical Diagnosis Assistant 🩺")
 
