@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit_notify as stn
+import streamlit.components.v1 as components
 import pandas as pd
 from engine import run_diagnosis_engine
 from engine import symptoms
@@ -8,76 +9,78 @@ if "disclaimer_accepted" not in st.session_state:
     st.session_state.disclaimer_accepted = False
 
 def show_blocking_modal():
-    st.markdown("""
+    components.html("""
+    <!DOCTYPE html>
+    <html>
+    <head>
     <style>
-    /* Fullscreen overlay */
-    .overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.65);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 999999;
-    }
+        body {
+            margin:0;
+            font-family: sans-serif;
+        }
 
-    /* Modal adapts to Streamlit theme */
-    .modal {
-        background: var(--background-color);
-        color: var(--text-color);
-        padding: 2rem;
-        border-radius: 16px;
-        width: 650px;
-        max-width: 90%;
-        text-align: center;
-        box-shadow: 0 0 40px rgba(0,0,0,0.4);
-        border: 1px solid rgba(150,150,150,0.2);
-        font-family: sans-serif;
-    }
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
 
-    .modal h2 {
-        margin-top: 0;
-        color: #ff4b4b;
-    }
+        .modal {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 600px;
+            max-width: 90%;
+            text-align:center;
+            box-shadow: 0 0 40px rgba(0,0,0,0.4);
+        }
 
-    .big-btn {
-        margin-top: 20px;
-        padding: 12px 28px;
-        font-size: 18px;
-        border-radius: 10px;
-        border: none;
-        background: #ff4b4b;
-        color: white;
-        cursor: pointer;
-    }
+        h2 { color:#ff4b4b; }
+
+        .btn {
+            display:inline-block;
+            margin-top:20px;
+            padding:14px 28px;
+            font-size:18px;
+            border-radius:10px;
+            background:#ff4b4b;
+            color:white;
+            text-decoration:none;
+        }
     </style>
+    </head>
 
-    <div class="overlay">
-        <div class="modal">
-            <h2>⚠️ Medical Disclaimer</h2>
-            <p>
-            This app is for <b>educational purposes only</b> and does NOT provide
-            medical advice, diagnosis, or treatment.<br><br>
-            Always consult a qualified healthcare professional.
-            </p>
+    <body>
+        <div class="overlay">
+            <div class="modal">
+                <h2>⚠️ Medical Disclaimer</h2>
+                <p>
+                This app is for <b>educational purposes only</b> and does NOT
+                provide medical advice or diagnosis.<br><br>
+                Always consult a qualified healthcare professional.
+                </p>
 
-            <form action="" method="post">
-                <button class="big-btn" name="accept" type="submit">
-                    I Understand and Agree
-                </button>
-            </form>
+                <!-- THIS is the magic -->
+                <a class="btn" href="?accepted=true">I Understand and Agree</a>
+
+            </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+    </body>
+    </html>
+    """, height=1000)
 
 
-# show modal until accepted
+params = st.query_params
+
 if not st.session_state.disclaimer_accepted:
     show_blocking_modal()
 
-    # Detect form submit
-    if st.query_params.get("accept") is not None:
+    if params.get("accepted") == "true":
         st.session_state.disclaimer_accepted = True
+        st.query_params.clear()  # remove ?accepted from URL
         st.rerun()
 
     st.stop()
