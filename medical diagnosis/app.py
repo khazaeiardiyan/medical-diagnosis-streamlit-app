@@ -41,7 +41,7 @@ if st.button("Run Diagnosis"):
         for disease, confidence in ranking:
             if disease in emergency_diseases:
                 st.error(f'{disease} is an emergency! please seek immidate action', icon="💀" )
-    with st.popover("need medical help?S"):
+    with st.popover("need medical help?"):
         st.markdown(
             f'''<a href="https://www.fraserhealth.ca/Service-Directory/Locations/Abbotsford/abbotsford-urgent-and-primary-care-centre">fraser health care center</a>''',
             unsafe_allow_html=True
