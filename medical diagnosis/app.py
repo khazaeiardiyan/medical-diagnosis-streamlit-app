@@ -5,6 +5,9 @@ import pandas as pd
 from engine import run_diagnosis_engine
 from engine import symptoms
 
+st.set_page_config(layout="wide")
+
+
 if "disclaimer_accepted" not in st.session_state:
     st.session_state.disclaimer_accepted = False
 
@@ -14,10 +17,7 @@ def show_blocking_modal():
     <html>
     <head>
     <style>
-        body {
-            margin:0;
-            font-family: sans-serif;
-        }
+        body { margin:0; }
 
         .overlay {
             position: fixed;
@@ -26,6 +26,7 @@ def show_blocking_modal():
             display:flex;
             align-items:center;
             justify-content:center;
+            z-index:999999;
         }
 
         .modal {
@@ -36,6 +37,7 @@ def show_blocking_modal():
             max-width: 90%;
             text-align:center;
             box-shadow: 0 0 40px rgba(0,0,0,0.4);
+            font-family: sans-serif;
         }
 
         h2 { color:#ff4b4b; }
@@ -63,14 +65,12 @@ def show_blocking_modal():
                 Always consult a qualified healthcare professional.
                 </p>
 
-                <!-- THIS is the magic -->
                 <a class="btn" href="?accepted=true">I Understand and Agree</a>
-
             </div>
         </div>
     </body>
     </html>
-    """, height=1000)
+    """, height=0, width=0)
 
 
 params = st.query_params
