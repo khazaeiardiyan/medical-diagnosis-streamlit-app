@@ -4,6 +4,60 @@ import pandas as pd
 from engine import run_diagnosis_engine
 from engine import symptoms
 
+if "disclaimer_accepted" not in st.session_state:
+    st.session_state.disclaimer_accepted = False
+
+def show_disclaimer():
+    modal_html = """
+    <style>
+    .overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background-color: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+    .modal {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 600px;
+        max-width: 90%;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        font-family: sans-serif;
+    }
+    .modal h2 { color: #cc0000; }
+    </style>
+
+    <div class="overlay">
+        <div class="modal">
+            <h2>⚠️ Medical Disclaimer</h2>
+            <p>
+            This tool is for <b>educational purposes only</b>.
+            It does NOT provide medical advice, diagnosis, or treatment.
+            Always consult a qualified healthcare professional.
+            </p>
+        </div>
+    </div>
+    """
+    st.markdown(modal_html, unsafe_allow_html=True)
+
+
+if not st.session_state.disclaimer_accepted:
+    show_disclaimer()
+
+    st.markdown("### Please confirm to continue")
+    if st.button("I Understand and Agree"):
+        st.session_state.disclaimer_accepted = True
+        st.rerun()
+
+    st.stop() # to help me freez the app
+
+
 st.title("Medical Diagnosis Assistant 🩺")
 
 age = st.number_input("Enter your age", min_value=0, max_value=99)
