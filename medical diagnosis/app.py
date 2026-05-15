@@ -5,6 +5,11 @@ import pandas as pd
 from engine import run_diagnosis_engine
 from engine import symptoms
 
+if "accepted_disclaimer" not in st.session_state:
+    query = st.query_params  # new Streamlit API
+    st.session_state.accepted_disclaimer = query.get("accepted") == "true"
+
+
 st.set_page_config(layout="wide")
 
 
@@ -75,14 +80,8 @@ def show_blocking_modal():
 
 params = st.query_params
 
-if not st.session_state.disclaimer_accepted:
+if not st.session_state.accepted_disclaimer:
     show_blocking_modal()
-
-    if params.get("accepted") == "true":
-        st.session_state.disclaimer_accepted = True
-        st.query_params.clear()  # remove ?accepted from URL
-        st.rerun()
-
     st.stop()
 
 st.title("Medical Diagnosis Assistant 🩺")
