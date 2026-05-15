@@ -28,7 +28,7 @@ agreed = st.checkbox("I Underastand and Agree",)
 
 
 if not agreed:
-    st.warning("Please check the box above to continue.")
+    st.error("Please check the box above to continue.")
     st.stop() 
 
 if st.button("Run Diagnosis"):
