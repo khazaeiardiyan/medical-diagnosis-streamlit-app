@@ -706,8 +706,7 @@ diseases = {
 
 
 PRIORS = {
-
-# very common everyday stuff
+# very common
 "d001": 1.03,  # cold
 "d002": 1.02,  # flu
 "d003": 1.01,  # COVID
@@ -759,7 +758,7 @@ PRIORS = {
 "d061": 0.99,  # labyrinthitis
 "d062": 0.99,  # meniere
 
-# rare / emergency / dangerous (slightly penalized)
+# rare / emergency / dangerous
 "d009": 0.98,  # appendicitis
 "d015": 0.98,  # heart attack
 "d018": 0.97,  # pulmonary embolism
@@ -842,10 +841,6 @@ symptoms = {
 "s059": {"name": "frequent urination"},
 "s060": {"name": "painful urination"}
 }
-
-menu = ""
-for index, (sym_id, data) in enumerate(symptoms.items()):
-    menu += f"{index}. {data['name'].title()}\n"
 
 
 profile_adjustments = {
