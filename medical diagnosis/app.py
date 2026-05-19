@@ -40,7 +40,7 @@ if st.button("Run Diagnosis"):
         ranking_df["Confidence (%)"] *= 100
         ranking_df["Confidence (%)"] = ranking_df["Confidence (%)"].round(1)
         stn.notify()
-        st.toast("This tool is for educational purposes only and is not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.", icon="⚠️")
+        st.toast("This tool is for educational purposes only and is :red[**NOT**] a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.", icon="⚠️")
         st.divider()
         st.subheader("Top Predictions")
         st.dataframe(ranking_df)
