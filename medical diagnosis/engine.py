@@ -847,13 +847,6 @@ menu = ""
 for index, (sym_id, data) in enumerate(symptoms.items()):
     menu += f"{index}. {data['name'].title()}\n"
 
-quick_symptoms = {}
-for id, data in symptoms.items():
-  disease_name = data["name"]
-  disease_id = id
-  quick_symptoms.update({disease_name : disease_id})
-
-
 
 profile_adjustments = {
         "heart attack":        {"male": 1.5, "female": 0.7,
