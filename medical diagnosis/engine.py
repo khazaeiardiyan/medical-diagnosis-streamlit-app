@@ -953,7 +953,7 @@ def categorize_age(patient_age: int) -> str:
     
 
 
-def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms):
+def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms:list):
 
     if not patient_symptoms:
         return {"status": "error", "message": "No valid symptoms found", "ranking": None}
