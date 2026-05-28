@@ -995,7 +995,7 @@ def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms:l
 
     scores = list(result.values()) 
     names = list(result.keys())
-    scores = sorted(scores, key=lambda x: x[1], reverse=True)[:3]
+    scores = sorted(scores, key=lambda x: x, reverse=True)[:3]
     array = np.array(scores)
     probs = np.exp(array - np.max(scores))
     probs = probs / probs.sum()
