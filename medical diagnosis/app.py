@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit_notify as stn
 import pandas as pd
+import numpy as np
 from engine import run_diagnosis_engine
 from engine import symptoms
 
@@ -37,8 +38,12 @@ if st.button("Run Diagnosis"):
     else:
         ranking =  result["ranking"]
         ranking_df = pd.DataFrame(ranking, columns=["Disease", "Confidence (%)"])
-        ranking_df["Confidence (%)"] *= 100
-        ranking_df["Confidence (%)"] = ranking_df["Confidence (%)"].round(1)
+        confidence = ranking_df["Confidence (%)"]
+        scores = np.array(confidence)
+        probs = np.exp(scores - np.max(scores))
+        probs = probs / probs.sum()
+        confidence = confidence.round(1)
+        
         stn.notify()
         st.toast("This tool is for educational purposes only and is :red[**NOT**] a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.", icon="⚠️")
         st.divider()

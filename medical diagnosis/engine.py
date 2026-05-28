@@ -993,12 +993,9 @@ def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms:l
 
         result[disease_name] = posterior
 
-    # softmax ranking
+    scores = list(result.values()) 
     names = list(result.keys())
-    scores = np.array(list(result.values()))
-    probs = np.exp(scores - np.max(scores))
-    probs = probs / probs.sum()
 
-    ranking = sorted(zip(names, probs), key=lambda x: x[1], reverse=True)[:3]
+    ranking = sorted(zip(names, scores), key=lambda x: x[1], reverse=True)[:3]
 
     return {"status": "ok", "message": "success", "ranking": ranking}
