@@ -993,11 +993,13 @@ def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms:l
 
         result[disease_name] = posterior
 
-    scores = list(result.values()) 
-    names = list(result.keys())
-    scores = sorted(scores, key=lambda x: x, reverse=True)[:3]
-    array = np.array(scores)
-    probs = np.exp(array - np.max(scores))
+    ranking = sorted(result.items(),key=lambda x: x[1],reverse=True)[:3]
+
+    names = [x[0] for x in ranking]
+    scores = np.array([x[1] for x in ranking])
+
+    probs = np.exp(scores - np.max(scores))
     probs = probs / probs.sum()
-    ranking = sorted(zip(names, scores), key=lambda x: x[1], reverse=True)[:3]
+
+    ranking = list(zip(names, probs.tolist()))
     return {"status": "ok", "message": "success", "ranking": ranking}
