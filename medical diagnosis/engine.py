@@ -988,11 +988,10 @@ def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms:l
             else:
                 likelihood += np.log(1 - probability)
 
-        likelihood /= len(disease_symptoms)
         posterior = np.log(prior) + likelihood
-
-        result[disease_name] = posterior
-
+        probabilities = np.exp(posterior)
+        probabilities /= probabilities.sum()
+        
     ranking = sorted(result.items(),key=lambda x: x[1],reverse=True)[:3]
 
     names = [x[0] for x in ranking]
