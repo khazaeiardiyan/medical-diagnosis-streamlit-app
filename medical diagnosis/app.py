@@ -43,14 +43,14 @@ if st.button("Run Diagnosis"):
         probs = np.exp(scores - np.max(scores))
         probs = probs / probs.sum()
         confidence = confidence.round(1)
-        
+
         stn.notify()
         st.toast("This tool is for educational purposes only and is :red[**NOT**] a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.", icon="⚠️")
         st.divider()
         st.subheader("Top Predictions")
-        st.dataframe(ranking_df)
+        st.dataframe(confidence)
         st.subheader("Diagnosis Probability Chart")
-        st.bar_chart(ranking_df.set_index("Disease"),color="#FDAA48")
+        st.bar_chart(confidence.set_index("Disease"),color="#FDAA48")
 
         for disease, confidence in ranking:
             if disease in emergency_diseases:
