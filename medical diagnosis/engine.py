@@ -965,17 +965,16 @@ def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms:l
 
     result = {}
 
+    result = {}
+
     for disease_id, disease_data in diseases.items():
         disease_name = disease_data["name"]
         prior = disease_data["weight"]
 
-        # profile adjustments
         if disease_name in profile_adjustments:
             adjustments = profile_adjustments[disease_name]
-
             if patient_gender in adjustments:
                 prior *= adjustments[patient_gender]
-
             if age_group in adjustments:
                 prior *= adjustments[age_group]
 
@@ -987,6 +986,9 @@ def run_diagnosis_engine(patient_age:int, patient_gender:str, patient_symptoms:l
                 likelihood += np.log(probability)
             else:
                 likelihood += np.log(1 - probability)
+
+        posterior = np.log(prior) + likelihood
+        result[disease_name] = posterior 
 
         posterior = np.log(prior) + likelihood
         probabilities = np.exp(posterior)
